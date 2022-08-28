@@ -1,23 +1,22 @@
 import os
 import requests
 
-from .types import EssentialHeaders
 from .violations import Violations
 from .utils import request_safety
 
 
 class CycodeClient(Violations):
-    url = "https://app.cycode.com/api"
+    url = "https://api.cycode.com/api"
+    base_headers = {
+        "Accept": "application/json",
+        "Content-type": "application/json",
+    }
 
     def __init__(self):
         self.token = self.authenticate()
 
-    def assemble_headers(self) -> EssentialHeaders:
-        headers = EssentialHeaders(
-            Accept="application/json",
-            Authorization=f"Bearer {self.token}",
-        )
-        return headers
+    def assemble_headers(self) -> dict[str, str]:
+        return self.base_headers | {"Authorization": f"Bearer {self.token}"}
 
     @classmethod
     def authenticate(cls) -> str:

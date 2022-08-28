@@ -1,17 +1,11 @@
 import requests
-from typing import TypedDict
 
 from .utils import request_safety
 
 
-class EssentialHeaders(TypedDict):
-    Accept: str
-    Authorization: str
-
-
 class Violations:
     url: str
-    def assemble_headers(self) -> EssentialHeaders: ...
+    def assemble_headers(self) -> dict[str, str]: ...
 
     def get_violation_details(self, identifier: str) -> dict:
         """
