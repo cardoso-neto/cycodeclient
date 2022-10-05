@@ -1,3 +1,4 @@
+import logging
 import os
 import requests
 
@@ -34,4 +35,5 @@ class CycodeClient(Violations):
         with request_safety():
             res = requests.post(url, json=data)
             res.raise_for_status()
+        logging.info("Logged in to Cycode API.")
         return res.json()["token"]

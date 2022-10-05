@@ -9,11 +9,11 @@ class Violations:
 
     def get_violation_details(self, identifier: str) -> dict:
         """
-        {"status": "Resolved", "status_reason": "Revoked"}
+        {"status": "Resolved", "status_reason": "Revoked", ...}
         or
-        {"status": "Dismissed", "status_reason": "Ignored"}
+        {"status": "Dismissed", "status_reason": "Ignored", ...}
         """
-        url = f"{self.url}/alerts/{identifier}"
+        url = f"https://app.cycode.com/api/alerts/{identifier}"
         with request_safety():
             res = requests.get(url, headers=self.assemble_headers())  # type: ignore
             res.raise_for_status()
